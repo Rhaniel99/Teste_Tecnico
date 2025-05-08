@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 # Instala ferramentas globais para desenvolvimento
-RUN npm install -g nodemon ts-node typescript tsconfig-paths
+RUN npm install -g @nestjs/cli nodemon ts-node typescript tsconfig-paths
 
 # Copia todo o código da aplicação
 COPY . .

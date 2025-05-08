@@ -1,0 +1,30 @@
+### list developers
+
+GET http://localhost:8080/developers
+
+### get developers
+
+GET http://localhost:8080/developers/dev_Ol0AoRTs063v49BEJESy2
+
+### create developers
+
+POST http://localhost:8080/developers/
+Content-Type: application/json
+
+{
+    "name": "Rhanis Miranda",
+    "email": "rhanis.m@acm.com",
+    "dateOfBirth": "1990-01-01"
+}
+
+### update developers
+
+PATCH http://localhost:8080/developers/dev_Ol0AoRTs063v49BEJESy2
+Content-Type: application/json
+
+{
+    "name": "Rhaniel Miranda"
+}
+### delete developers
+
+DELETE http://localhost:8080/developers/dev_Ol0AoRTs063v49BEJESy2
