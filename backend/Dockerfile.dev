@@ -1,0 +1,21 @@
+FROM node:24.0.0-slim
+
+# Define diretório de trabalho
+WORKDIR /usr/src/api
+
+# Copia package.json e package-lock.json e instala dependências (inclui devDeps)
+COPY package*.json ./
+
+RUN npm install
+
+# Instala ferramentas globais para desenvolvimento
+RUN npm install -g nodemon ts-node typescript tsconfig-paths
+
+# Copia todo o código da aplicação
+COPY . .
+
+# Porta padrão do NestJS em dev
+EXPOSE 3000
+
+# Usa nodemon com ts-node para hot‑reload
+CMD [ "nodemon", "--watch", "src", "--ext", "ts", "--exec", "ts-node -r tsconfig-paths/register src/main.ts" ]

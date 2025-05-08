@@ -1,0 +1,22 @@
+FROM node:24.0.0-slim
+
+# Criar diretório do aplicativo, isso está no nosso contêiner/na nossa imagem
+WORKDIR /usr/src/api
+
+# Instalar dependências do aplicativo
+# Um curinga é usado para garantir que tanto package.json quanto package-lock.json sejam copiados
+# quando disponíveis (npm@5+)
+COPY package*.json ./
+
+# RUN npm install
+# Se você estiver construindo seu código para produção
+RUN npm ci --only=production
+
+# Agrupar fonte do aplicativo
+COPY . .
+
+RUN npm run build
+
+EXPOSE 8080
+
+CMD [ "node", "dist/main" ]
