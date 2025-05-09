@@ -13,7 +13,7 @@ services:
       DATABASE_URL: postgres://user:password@postgres:5432/db
       NODE_ENV: development
       PORT: 3000
-      # Força polling para detectar mudanças de arquivo
+      # ? Força polling para detectar mudanças de arquivo
       CHOKIDAR_USEPOLLING: "true"
       CHOKIDAR_INTERVAL: 100
     ports:
@@ -27,7 +27,7 @@ services:
     ports:
       - "35000:5432"
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: db
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     restart: always

@@ -10,11 +10,3 @@ export class AppController {
     return this.appService.getHello();
   }
 }
-
-// @Controller('ping')
-// export class AppController {
-//   @Get()
-//   ping(): string {
-//     return 'pong';
-//   }
-// }

@@ -8,8 +8,11 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       transform: true,
-    })
+    }),
   );
   await app.listen(process.env.PORT ?? 8080);
 }
-bootstrap();
+
+bootstrap()
+  .then(() => console.log('Bootstrap successful'))
+  .catch((error) => console.error('Bootstrap error:', error));

@@ -12,6 +12,7 @@
     "baseUrl": ".", // Base para os imports
     "paths": { "@/*": ["src/*"] },
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
