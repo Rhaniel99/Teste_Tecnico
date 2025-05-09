@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      args:
+        UID: ${UID}
+        GID: ${GID}
     volumes:
       - ./:/usr/src/api               # Monta código-fonte local
       - /usr/src/api/node_modules     # Isola node_modules dentro do container
@@ -17,6 +20,7 @@ services:
       - "8080:3000"
     depends_on:
       - postgres
+    restart: always
 
   postgres:
     image: postgres:latest
@@ -26,3 +30,4 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
+    restart: always

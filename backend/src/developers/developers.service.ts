@@ -18,12 +18,10 @@ export class DevelopersService {
 
   findAll() {
     return this.repository.find();
-    // return `This action returns all developers`;
   }
 
   findOne(id: string) {
     return this.repository.findOneBy({ id });
-    // return `This action returns a #${id} developer`;
   }
 
   async update(id: string, dto: UpdateDeveloperDto) {

@@ -1,0 +1,28 @@
+### list customers
+
+GET http://localhost:8080/customers
+
+### get customers
+
+GET http://localhost:8080/customers/c5deecaf-5215-4e78-9792-b5a938f11b81
+
+### create customers
+
+POST http://localhost:8080/customers/
+Content-Type: application/json
+
+{
+    "name": "Drogaria Santo Leao"
+}
+
+### update customers
+
+PATCH http://localhost:8080/customers/c5deecaf-5215-4e78-9792-b5a938f11b81
+Content-Type: application/json
+
+{
+    "name": "Drogaria Santo Leao"
+}
+### delete customers
+
+DELETE http://localhost:8080/customers/d91be5fc-86c2-443e-945a-1644b16cd1e1

@@ -1,0 +1,30 @@
+### list orders
+
+GET http://localhost:8080/orders
+
+### get orders
+
+GET http://localhost:8080/orders/dev_Ol0AoRTs063v49BEJESy2
+
+### create orders
+
+POST http://localhost:8080/orders/
+Content-Type: application/json
+
+{
+    "clientId": "d1df3724-b2d0-4d8e-b8ac-4e7b0eb5baa1",
+    "items": "Torsilax",
+    "total": 100
+}
+
+### update orders
+
+PATCH http://localhost:8080/orders/a68ce368-fa31-465f-b97d-0114e849281f
+Content-Type: application/json
+
+{
+    "status": "pago"
+}
+
+### delete orders
+DELETE http://localhost:8080/orders/a68ce368-fa31-465f-b97d-0114e849281f

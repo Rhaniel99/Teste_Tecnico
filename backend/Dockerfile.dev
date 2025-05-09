@@ -1,21 +1,23 @@
+# Dockerfile.dev
 FROM node:24.0.0-slim
 
-# Define diretório de trabalho
 WORKDIR /usr/src/api
 
-# Copia package.json e package-lock.json e instala dependências (inclui devDeps)
+# 1) instala deps e aplica chown para o usuário node
 COPY package*.json ./
+RUN npm install \
+ && chown -R node:node /usr/src/api
 
-RUN npm install
-
-# Instala ferramentas globais para desenvolvimento
+# 2) global tools
 RUN npm install -g @nestjs/cli nodemon ts-node typescript tsconfig-paths
 
-# Copia todo o código da aplicação
+# 3) copia o restante do código e garante permissão
 COPY . .
 
-# Porta padrão do NestJS em dev
+RUN chown -R node:node /usr/src/api
+
+USER node
+
 EXPOSE 3000
 
-# Usa nodemon com ts-node para hot‑reload
 CMD [ "nodemon", "--watch", "src", "--ext", "ts", "--exec", "ts-node -r tsconfig-paths/register src/main.ts" ]
