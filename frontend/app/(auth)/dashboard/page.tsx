@@ -1,7 +1,6 @@
 import { OrdersTable } from "@/app/components/orders-table"
 import { DashboardHeader } from "@/app/components/dashboard-header"
 
-
 export default function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col">

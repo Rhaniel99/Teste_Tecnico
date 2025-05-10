@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Order, OrderInput, OrderUpdate } from "../types/order";
+import type { Order, OrderCreate, OrderUpdate } from "../types/order";
 import {
   listOrders,
   createOrder,
@@ -23,7 +23,7 @@ export function useOrders() {
   });
 
   // Mutation para criação
-  const createMutation = useMutation<Order, Error, OrderInput>({
+  const createMutation = useMutation<Order, Error, OrderCreate>({
     mutationFn: (input) => createOrder(input),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["orders"] }),
   });
@@ -48,7 +48,7 @@ export function useOrders() {
     orders,
     isLoading,
     isError,
-    add: (input: OrderInput) => createMutation.mutateAsync(input),
+    add: (input: OrderCreate) => createMutation.mutateAsync(input),
     edit: (id: string, upd: OrderUpdate) =>
       updateMutation.mutateAsync({ id, data: upd }),
     remove: (id: string) => deleteMutation.mutateAsync(id),

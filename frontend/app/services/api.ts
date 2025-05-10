@@ -7,11 +7,11 @@ export const apiClient = axios.create({
   },
 });
 
-// Exemplo de interceptor de erros
+// ? Exemplo de interceptor de erros
 apiClient.interceptors.response.use(
   resp => resp,
   err => {
-    // tratamento global de erros
+    // ? tratamento global de erros
     return Promise.reject(err);
   }
 );

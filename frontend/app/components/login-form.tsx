@@ -17,7 +17,6 @@ export function LoginForm() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, you would validate credentials here
     router.push("/dashboard")
   }
 
@@ -28,8 +27,8 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md border-primary-800">
       <CardHeader className="space-y-1 bg-primary-900 text-black-foreground">
-        <CardTitle className="text-2xl font-bold">Purchasing Managemsent</CardTitle>
-        <CardDescription className="text-primary-200">Login to access your purchasing dashboard</CardDescription>
+        <CardTitle className="text-2xl font-bold">Gestão de Compras</CardTitle>
+        <CardDescription className="text-primary-200">Faça login para acessar o painel de compras</CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
         <form onSubmit={handleLogin} className="space-y-4">
@@ -38,7 +37,7 @@ export function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder="your@email.com"
+              placeholder="seuemail@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -46,7 +45,7 @@ export function LoginForm() {
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Senha</Label>
             </div>
             <div className="relative">
               <Input
@@ -75,7 +74,7 @@ export function LoginForm() {
           </div>
           <Button type="submit" className="w-full">
             <LogIn className="mr-2 h-4 w-4" />
-            Login
+            Entrar
           </Button>
         </form>
       </CardContent>
@@ -85,11 +84,11 @@ export function LoginForm() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or</span>
+            <span className="bg-background px-2 text-muted-foreground">Ou</span>
           </div>
         </div>
         <Button variant="outline" className="w-full" onClick={handleVisitorLogin}>
-          Continue as Visitor
+          Continuar como Visitante
         </Button>
       </CardFooter>
     </Card>

@@ -11,7 +11,7 @@ async function bootstrap() {
     }),
   );
   
-  // Habilita CORS para permitir chamadas do frontend em http://localhost:3000
+  // ? Habilita CORS para permitir chamadas do frontend em http://localhost:3000
   app.enableCors({
     origin: 'http://localhost:3000',
     credentials: true,
