@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DevelopersModule } from './developers/developers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
@@ -20,7 +19,6 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    DevelopersModule,
     CustomersModule,
     OrdersModule,
   ],

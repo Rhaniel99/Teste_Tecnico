@@ -26,6 +26,8 @@ services:
     image: postgres:latest
     ports:
       - "35000:5432"
+    volumes:
+      - ./.docker/postgresql:/var/lib/postgresql/data     
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
