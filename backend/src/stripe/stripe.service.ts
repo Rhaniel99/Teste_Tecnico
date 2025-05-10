@@ -11,6 +11,7 @@ export class StripeService {
   constructor(private config: ConfigService) {
     // 1) informa ao TS que espera string
     const secretKey = this.config.get<string>('STRIPE_SECRET_KEY');
+    console.log('Using Stripe secret key prefix:', secretKey?.slice(0,5)); 
     // 2) valida em tempo de execução
     if (!secretKey) {
       // aqui você pode lançar um erro mais específico ou usar InternalServerErrorException

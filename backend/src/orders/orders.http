@@ -4,7 +4,7 @@ GET http://localhost:8080/orders
 
 ### get orders
 
-GET http://localhost:8080/orders/22d108e9-5c99-4367-a58a-9e62fd85fa84
+GET http://localhost:8080/orders/d613525c-575c-436c-8352-1491a76a1b20
 
 ### create orders
 
@@ -12,14 +12,14 @@ POST http://localhost:8080/orders/
 Content-Type: application/json
 
 {
-    "clientId": "3d6d9cbd-f09c-49f8-89e1-eb10ab26254f",
-    "items": "Torsilax",
-    "total": 100
+    "clientId": "98e4efb1-1323-44b6-9116-d5cbc55007d8",
+    "items": "Dorflex",
+    "total": 30
 }
 
 ### update orders
 
-PATCH http://localhost:8080/orders/22d108e9-5c99-4367-a58a-9e62fd85fa84
+PATCH http://localhost:8080/orders/d613525c-575c-436c-8352-1491a76a1b20
 Content-Type: application/json
 
 {

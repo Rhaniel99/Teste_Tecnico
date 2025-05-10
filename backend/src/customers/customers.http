@@ -4,7 +4,7 @@ GET http://localhost:8080/customers
 
 ### get customers
 
-GET http://localhost:8080/customers/c5deecaf-5215-4e78-9792-b5a938f11b81
+GET http://localhost:8080/customers/98e4efb1-1323-44b6-9116-d5cbc55007d8
 
 ### create customers
 
@@ -12,17 +12,17 @@ POST http://localhost:8080/customers/
 Content-Type: application/json
 
 {
-    "name": "Drogaria Santo Leao"
+    "name": "Drogaria Francisco"
 }
 
 ### update customers
 
-PATCH http://localhost:8080/customers/c5deecaf-5215-4e78-9792-b5a938f11b81
+PATCH http://localhost:8080/customers/98e4efb1-1323-44b6-9116-d5cbc55007d8
 Content-Type: application/json
 
 {
-    "name": "Drogaria Santo Leao"
+    "name": "Drogaria Santo Bento"
 }
 ### delete customers
 
-DELETE http://localhost:8080/customers/d91be5fc-86c2-443e-945a-1644b16cd1e1
+DELETE http://localhost:8080/customers/52cfea2d-88fb-4e10-86a8-1b0070ac1ead
