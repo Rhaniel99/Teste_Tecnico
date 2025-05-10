@@ -38,10 +38,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Tooltip,
-  TooltipProvider,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { PaymentDialog } from "@/app/components/payment-dialog";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function OrdersTable() {
   const { orders, isLoading, isError, add, edit, remove } = useOrders();
@@ -49,6 +50,21 @@ export function OrdersTable() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [current, setCurrent] = useState<Order | null>(null);
   const [search, setSearch] = useState("");
+  const [payingOrder, setPayingOrder] = useState<Order | null>(null);
+  const [isPayOpen, setIsPayOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const openPayDialog = (order: Order) => {
+    console.log(order);
+    setPayingOrder(order);
+    setIsPayOpen(true);
+  };
+  const closePayDialog = () => {
+    setIsPayOpen(false);
+    setPayingOrder(null);
+  };
+  const handlePaid = () => {
+    queryClient.invalidateQueries({ queryKey: ["orders"] });
+  };
 
   if (isLoading) return <p>Carregando...</p>;
   if (isError) return <p>Erro ao carregar pedidos.</p>;
@@ -159,21 +175,43 @@ export function OrdersTable() {
                     </TableCell>
                     <TableCell className="text-center">
                       <div className="flex justify-center items-center gap-2">
+                        {/* Botão Pagar Pedido */}
+                        {order.status !== "pago" &&
+                          order.status !== "cancelado" && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="flex">
+                                  <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => openPayDialog(order)}
+                                  >
+                                    <CreditCard className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>Pagar Pedido</TooltipContent>
+                            </Tooltip>
+                          )}
+
                         {/* Botão Editar Pedido */}
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div className="flex">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => openEditDialog(order)}
-                              >
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>Editar Pedido</TooltipContent>
-                        </Tooltip>
+                        {order.status !== "pago" &&
+                          order.status !== "cancelado" && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="flex">
+                                  <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => openEditDialog(order)}
+                                  >
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>Editar Pedido</TooltipContent>
+                            </Tooltip>
+                          )}
 
                         {/* Botão Excluir Pedido */}
                         <Tooltip>
@@ -217,59 +255,51 @@ export function OrdersTable() {
                           <TooltipContent>Excluir Pedido</TooltipContent>
                         </Tooltip>
 
-                        {/* Botão Pagar Pedido */}
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div className="flex">
-                              <Button variant="outline" size="icon">
-                                <CreditCard className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>Pagar Pedido</TooltipContent>
-                        </Tooltip>
-
                         {/* Botão Cancelar Pedido */}
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div className="flex">
-                              <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                  <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="text-destructive"
-                                  >
-                                    <X className="h-4 w-4" />
-                                  </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                  <AlertDialogHeader>
-                                    <AlertDialogTitle>
-                                      Cancelar Pedido
-                                    </AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                      Tem certeza de que deseja cancelar este
-                                      pedido? Esta ação não pode ser desfeita.
-                                    </AlertDialogDescription>
-                                  </AlertDialogHeader>
-                                  <AlertDialogFooter>
-                                    <AlertDialogCancel>
-                                      Cancelar
-                                    </AlertDialogCancel>
-                                    <AlertDialogAction
-                                      onClick={() => handleCancel(order.id)}
-                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                    >
-                                      Cancelar
-                                    </AlertDialogAction>
-                                  </AlertDialogFooter>
-                                </AlertDialogContent>
-                              </AlertDialog>
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>Cancelar Pedido</TooltipContent>
-                        </Tooltip>
+                        {order.status !== "pago" &&
+                          order.status !== "cancelado" && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="flex">
+                                  <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                      <Button
+                                        variant="outline"
+                                        size="icon"
+                                        className="text-destructive"
+                                      >
+                                        <X className="h-4 w-4" />
+                                      </Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                      <AlertDialogHeader>
+                                        <AlertDialogTitle>
+                                          Cancelar Pedido
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                          Tem certeza de que deseja cancelar
+                                          este pedido? Esta ação não pode ser
+                                          desfeita.
+                                        </AlertDialogDescription>
+                                      </AlertDialogHeader>
+                                      <AlertDialogFooter>
+                                        <AlertDialogCancel>
+                                          Cancelar
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction
+                                          onClick={() => handleCancel(order.id)}
+                                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                        >
+                                          Cancelar
+                                        </AlertDialogAction>
+                                      </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                  </AlertDialog>
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>Cancelar Pedido</TooltipContent>
+                            </Tooltip>
+                          )}
                       </div>
                     </TableCell>
                   </TableRow>
@@ -297,6 +327,16 @@ export function OrdersTable() {
               <OrderForm onSubmit={handleEdit} initialData={current} />
             </DialogContent>
           </Dialog>
+        )}
+
+        {payingOrder && (
+          <PaymentDialog
+            orderId={payingOrder.id}
+            amount={Number(payingOrder.total) * Number(payingOrder.total)}
+            open={isPayOpen}
+            onClose={closePayDialog}
+            onPaid={handlePaid}
+          />
         )}
       </div>
     </>
